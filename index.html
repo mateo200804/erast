@@ -1,0 +1,31 @@
+<div id="tlkio" data-channel="" style="width: 100%; height: 400px;"></div>
+<script async src="http://tlk.io/embed.js" type="text/javascript"></script>
+<script>
+    // Generate a random ID
+    function generateRandomId() {
+        const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let randomId = '';
+        for (let i = 0; i < 10; i++) {
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            randomId += characters.charAt(randomIndex);
+        }
+        return randomId;
+    }
+
+    // Get the date input from the user
+    const dateInput = prompt('Enter a date (YYYY-MM-DD):');
+    if (dateInput) {
+        const formattedDate = dateInput.replace(/-/g, ''); // Remove hyphens
+        const userCounter = parseInt(localStorage.getItem('userCounter') || '0', 10) + 1;
+
+        // Pair users in chat rooms of two
+        const chatChannel = `chat-${formattedDate}-${Math.ceil(userCounter / 2)}`;
+
+        // Set the chat channel as the data-channel attribute
+        const tlkioElement = document.getElementById('tlkio');
+        tlkioElement.setAttribute('data-channel', chatChannel);
+
+        // Update the user counter in localStorage
+        localStorage.setItem('userCounter', userCounter.toString());
+    }
+</script>
